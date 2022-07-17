@@ -14,8 +14,11 @@ marp: true
 **→そうだ、Gitのコミットを利用してグラフを自動生成しよう**
 
 ---
+# 作りました🎉🎉🎉
+
+---
 # Gitのコミット
-![height:570](img5.png)
+![height:570](img6.png)
 
 ---
 # 完成品の画像
@@ -25,13 +28,15 @@ marp: true
 ---
 # 使い方も簡単
 
-![height:400](img4.png)
+![height:400](img7.5.png)
 VS Codeの拡張機能なため、執筆活動からシームレスにグラフを確認できます!!
 
 ---
 # 使用した技術スタッフ
 * JavaScript
 * HTML
+* Git
+  * https://github.com/PenguinCabinet/Writer-Stock
 
 VS CodeはElectronのため、拡張機能開発にWEBの技術をそのまま流用できる!!(ありがたい)
 先ほどのグラフの表示部分も、WebViewでやっているので普通にchart.jsを使っています。
