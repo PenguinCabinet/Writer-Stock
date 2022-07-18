@@ -25,5 +25,9 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 Users appreciate release notes as you update your extension.
 
+### 0.0.2
+* Start on launch of VS Code.   
+* Add the logo icon.
+
 ### 0.0.1
 First version!

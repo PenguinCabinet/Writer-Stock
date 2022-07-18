@@ -3,6 +3,11 @@
   "repository":"https://github.com/PenguinCabinet/Writer-Stock",
   "publisher":"PenguinCabinet",
   "displayName": "Writer-Stock",
+  "icon": "logo.png",
+  "galleryBanner": {
+    "color": "#5c2d91",
+    "theme": "dark"
+  },
   "description": "Drawing automatically the graph about the number of written characters by git commits.",
   "version": "0.0.2",
   "engines": {
