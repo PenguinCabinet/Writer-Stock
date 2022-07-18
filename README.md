@@ -6,8 +6,8 @@
 
 Gitコミットから執筆文字数のグラフを生成できるVS Code拡張機能です。
 
-# インストール
-[VSCode Marketplace]()
+# ⬇️インストール
+[VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=PenguinCabinet.writer-stock)
 
 # 📒使い方
 ![img2](LT/img7.5.png)
