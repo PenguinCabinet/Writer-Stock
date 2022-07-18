@@ -65,7 +65,7 @@ function activate(context) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('writer-stock.helloWorld', function () {
+	let disposable = vscode.commands.registerCommand('writer-stock.draw', function () {
 		// The code you place here will be executed every time your command is executed
 		const options = {
 			repo: vscode.workspace.workspaceFolders[0].uri.fsPath,
@@ -97,13 +97,13 @@ function activate(context) {
 		const panel = vscode.window.createWebviewPanel(
 			"writer-stock",
 			"文字数の推移",
-			vscode.ViewColumn.Beside,
+			vscode.ViewColumn.One,
 			// Webviewからメッセージを送るには`enableScripts`を`true`にしておく
 			{ enableScripts: true }
 		)
 
-		console.log(JSON.stringify(commits_date));
-		console.log(JSON.stringify(JSON.stringify(char_number_list)));
+		//console.log(JSON.stringify(commits_date));
+		//console.log(JSON.stringify(JSON.stringify(char_number_list)));
 
 		panel.webview.html = `
 <!DOCTYPE html>
@@ -148,13 +148,12 @@ function activate(context) {
 	});
 
 	context.subscriptions.push(disposable);
-	
 	const button = vscode.window.createStatusBarItem(
 		vscode.StatusBarAlignment.Right, 
 		0
 	);
 	
-	button.command = 'writer-stock.helloWorld';
+	button.command = 'writer-stock.draw';
 	button.text = '文字数の推移';
 	context.subscriptions.push(button);
 	button.show();
