@@ -1,7 +1,7 @@
 {
   "name": "writer-stock",
-  "repository":"https://github.com/PenguinCabinet/Writer-Stock",
-  "publisher":"PenguinCabinet",
+  "repository": "https://github.com/PenguinCabinet/Writer-Stock",
+  "publisher": "PenguinCabinet",
   "displayName": "Writer-Stock",
   "icon": "logo.png",
   "galleryBanner": {
@@ -9,7 +9,7 @@
     "theme": "dark"
   },
   "description": "Drawing automatically the graph about the number of written characters by git commits.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.69.0"
   },
@@ -48,6 +48,7 @@
   "dependencies": {
     "chart.js": "^3.8.0",
     "chartjs-node-canvas": "^4.1.6",
-    "gitlog": "^4.0.4"
+    "gitlog": "^4.0.4",
+    "parse-gitignore": "^2.0.0"
   }
 }

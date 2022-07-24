@@ -5,6 +5,9 @@ const vscode = require('vscode');
 const gitlog = require("gitlog").default;
 const { execSync } = require('child_process')
 const fs = require('fs');
+const parse = require('parse-gitignore');
+const path = require('path');
+
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -12,15 +15,69 @@ const fs = require('fs');
 /**
  * @param {vscode.ExtensionContext} context
  */
-function Get_List_Files(dir){
+
+function Get_wsignore(){
+	const fname=".wsignore";
+	const fpath=path.join(vscode.workspace.workspaceFolders[0].uri.fsPath,fname);
+
+	let Black_list=[];
+	let White_list=[];
+	try {
+		fs.statSync(fpath);
+		let wsignore_text=fs.readFileSync(fpath, 'utf8');
+		let list=parse(wsignore_text).patterns;
+		list.forEach((e)=>{
+			let text=e.replace("*",`.+`).replace("/",`[\/\\\\]`);
+			if(text[0]=="!")White_list.push(text.slice(1));
+			else Black_list.push(text);
+		})
+		//console.log(parse(wsignore_text));
+	} catch(err) {
+	}
+
+	return [Black_list,White_list]
+}
+
+function Get_List_Files(dir,relative_path,wsignore){
+	let wsignore_black=wsignore[0];
+	let wsignore_white=wsignore[1];
+
 	return fs.readdirSync(dir, { withFileTypes: true }).flatMap(function(dirent){
 		if(".git"==dirent.name)
 			return;
-		return dirent.isFile() ? [`${dir}/${dirent.name}`] : Get_List_Files(`${dir}/${dirent.name}`);
+		if(".wsignore"==dirent.name)
+			return;
+		let Is_add=true;
+		wsignore_black.forEach(
+			(e)=>{
+				//console.log(e);
+				//console.log(path.join(relative_path,dirent.name));
+				if(
+					path.join(relative_path,dirent.name).match(new RegExp(e,"g"))
+				){
+					Is_add=false;
+				}
+			}
+		);
+		wsignore_white.forEach(
+			(e)=>{
+				//console.log(e);
+				//console.log(path.join(relative_path,dirent.name));
+				if(
+					path.join(relative_path,dirent.name).match(new RegExp(e,"g"))
+				){
+					Is_add=true;
+				}
+			}
+		);
+		if(Is_add)
+			return dirent.isFile() ? [`${dir}/${dirent.name}`] : Get_List_Files(`${dir}/${dirent.name}`,path.join(relative_path,dirent.name),wsignore);
+		else
+			return undefined;
 	}).filter((e)=>e!==undefined);
 }
 
-function Get_line_number_one_diff(now_commit_hash){
+function Get_line_number_one_diff(now_commit_hash,wsignore){
 	try {
 		const stdout1 = execSync(`git checkout master`, {
 			cwd: vscode.workspace.workspaceFolders[0].uri.fsPath
@@ -29,8 +86,9 @@ function Get_line_number_one_diff(now_commit_hash){
 			cwd: vscode.workspace.workspaceFolders[0].uri.fsPath
 		});		
 	} catch (error) {}
-	const file_list=Get_List_Files(vscode.workspace.workspaceFolders[0].uri.fsPath);
- 
+	const file_list=Get_List_Files(vscode.workspace.workspaceFolders[0].uri.fsPath,"",wsignore);
+	console.log(file_list);
+	
 	const all_line_number=file_list.map(e => {
 		let text = fs.readFileSync(e, {encoding: 'utf-8'});
 		//console.log(text);
@@ -45,11 +103,11 @@ function Get_line_number_one_diff(now_commit_hash){
 	return all_line_number;
 	//return stdout.toString();
 }
-function Get_line_number_all_diff(commits_hash){
+function Get_line_number_all_diff(commits_hash,wsignore){
 	//console.log(commits_hash.length-1)
 	let A=[];
 	for(let i=0;i<commits_hash.length;i++){
-		const temp=Get_line_number_one_diff(commits_hash[i]);
+		const temp=Get_line_number_one_diff(commits_hash[i],wsignore);
 		A.push(temp);
 	}
 	
@@ -89,7 +147,9 @@ function activate(context) {
 		.map((e)=>e.match(re1)).filter((e)=>e!==null)
 		.map((e)=>e[0]);
 
-		const char_number_list=Get_line_number_all_diff(commits_hash);
+		let wsignore=Get_wsignore();
+
+		const char_number_list=Get_line_number_all_diff(commits_hash,wsignore);
 		const stdout2 = execSync(`git checkout master`, {
 			cwd: vscode.workspace.workspaceFolders[0].uri.fsPath
 		});
@@ -98,7 +158,6 @@ function activate(context) {
 			"writer-stock",
 			"文字数の推移",
 			vscode.ViewColumn.One,
-			// Webviewからメッセージを送るには`enableScripts`を`true`にしておく
 			{ enableScripts: true }
 		)
 
