@@ -1,15 +1,15 @@
 # ✍Writer-Stock README(JP)
 
 ## ℹ️概要
-![img1](https://github.com/PenguinCabinet/Writer-Stock/raw/master/LT/img3.png)
+![img1](https://github.com/PenguinCabinet/Writer-Stock/raw/master/img/img3.png)
 
 Gitコミットから執筆文字数のグラフを生成できるVS Code拡張機能です。   
 
 ### 依存関係
-インターネット接続とgitのインストールが必要です
+インターネット接続とgitのインストールが必要です。
 
 ## 📒使い方
-![img2](https://github.com/PenguinCabinet/Writer-Stock/raw/master/LT/img7.5.png)
+![img2](https://github.com/PenguinCabinet/Writer-Stock/raw/master/img/img7.5.png)
 拡張機能をインストールすると、VS Codeの右下に「文字数の推移」というボタンができると思うので、そこをクリックしてください。   
 そうすると作業ディレクトリのGitリポジトリのコミットから、執筆文字数の推移グラフを自動生成します。
 
@@ -29,7 +29,7 @@ test.md
 
 # ✍Writer-Stock README(EN)
 [Project Page](https://github.com/PenguinCabinet/Writer-Stock).     
-![img](https://github.com/PenguinCabinet/Writer-Stock/raw/master/LT/img3.png)
+![img](https://github.com/PenguinCabinet/Writer-Stock/raw/master/img/img3.png)
 
 Writer-Stock is the VS Code extension drawing automatically the graph about the number of written characters by git commits.     
 For novel writer,news writer or blogger etc...
@@ -43,7 +43,7 @@ For novel writer,news writer or blogger etc...
 It requires the Internet and CLI git client.
 
 ###s 📒How to use !
-![img2](https://github.com/PenguinCabinet/Writer-Stock/raw/master/LT/img7.5.png)     
+![img2](https://github.com/PenguinCabinet/Writer-Stock/raw/master/img/img7.5.png)     
 After installing the extension, you will see a button "文字数の推移" in the lower right corner of VS Code.   
 Then it will automatically generate a graph of the transition of the number of characters written from the commits in the Git repository in your working directory.   
 
