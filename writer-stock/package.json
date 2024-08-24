@@ -9,7 +9,7 @@
     "theme": "dark"
   },
   "description": "Drawing automatically the graph about the number of written characters by git commits.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
     "vscode": "^1.69.0"
   },
