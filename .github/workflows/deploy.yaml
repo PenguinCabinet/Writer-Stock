@@ -1,4 +1,5 @@
 on:
+  workflow_dispatch:
   push:
     tags:
       - "*"
@@ -13,6 +14,7 @@ jobs:
         with:
           node-version: 20
       - name: npm install
+        working-directory: writer-stock
         run: npm install
       - name: Publish to Visual Studio Marketplace
         uses: HaaLeo/publish-vscode-extension@v1
